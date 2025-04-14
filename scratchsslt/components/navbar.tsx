@@ -26,14 +26,18 @@ export function Navbar() {
               <NavigationMenuList className="gap-2">
                 <NavigationMenuItem>
                   <Link href="/practice" legacyBehavior passHref>
-                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    <NavigationMenuLink
+                      className={navigationMenuTriggerStyle()}
+                    >
                       Practice
                     </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                   <Link href="/library" legacyBehavior passHref>
-                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    <NavigationMenuLink
+                      className={navigationMenuTriggerStyle()}
+                    >
                       <Library className="w-4 h-4 mr-2" />
                       Library
                     </NavigationMenuLink>

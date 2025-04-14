@@ -12,7 +12,8 @@ const practiceSets = [
   {
     id: 1,
     title: "Reading Comprehension - Environmental Innovation",
-    description: "Practice your reading comprehension skills with this passage about environmental innovation and community impact.",
+    description:
+      "Practice your reading comprehension skills with this passage about environmental innovation and community impact.",
     type: "Reading Comprehension",
     timeEstimate: "20 minutes",
     difficulty: "Intermediate",
@@ -33,26 +34,29 @@ Sarah's initiative demonstrated how young people could bridge generational and c
           "To improve her college application",
           "To address plastic waste in her community",
           "To learn about Chinese culture",
-          "To meet new people at school"
+          "To meet new people at school",
         ],
-        correct: 1
+        correct: 1,
       },
       {
         type: "short-answer",
-        question: "How did Sarah's grandmother's stories influence her environmental project?",
-        maxWords: 100
+        question:
+          "How did Sarah's grandmother's stories influence her environmental project?",
+        maxWords: 100,
       },
       {
         type: "paragraph",
-        question: "Explain how Sarah's project bridged cultural and generational gaps in her community. Use specific examples from the text to support your answer.",
-        expectedLength: 200
-      }
-    ]
+        question:
+          "Explain how Sarah's project bridged cultural and generational gaps in her community. Use specific examples from the text to support your answer.",
+        expectedLength: 200,
+      },
+    ],
   },
   {
     id: 2,
     title: "Scientific Analysis - Climate Change",
-    description: "Test your ability to analyze scientific data and draw conclusions about climate patterns.",
+    description:
+      "Test your ability to analyze scientific data and draw conclusions about climate patterns.",
     type: "Scientific Analysis",
     timeEstimate: "25 minutes",
     difficulty: "Advanced",
@@ -66,33 +70,36 @@ Research indicates that these changes are primarily driven by human activities, 
     questions: [
       {
         type: "multiple-choice",
-        question: "What is the approximate rate of sea level rise according to the passage?",
+        question:
+          "What is the approximate rate of sea level rise according to the passage?",
         options: [
           "1.1 millimeters per year",
           "2.2 millimeters per year",
           "3.3 millimeters per year",
-          "4.4 millimeters per year"
+          "4.4 millimeters per year",
         ],
-        correct: 2
+        correct: 2,
       },
       {
         type: "short-answer",
-        question: "Explain the relationship between CO2 levels and global temperature changes mentioned in the passage.",
-        maxWords: 75
+        question:
+          "Explain the relationship between CO2 levels and global temperature changes mentioned in the passage.",
+        maxWords: 75,
       },
       {
         type: "paragraph",
-        question: "Analyze how the passage presents evidence for human-caused climate change. What specific data points and correlations are used to support this conclusion?",
-        expectedLength: 150
-      }
-    ]
-  }
+        question:
+          "Analyze how the passage presents evidence for human-caused climate change. What specific data points and correlations are used to support this conclusion?",
+        expectedLength: 150,
+      },
+    ],
+  },
 ];
 
 export default function PracticePage() {
   const [selectedSet, setSelectedSet] = useState<number | null>(null);
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [answers, setAnswers] = useState<{[key: string]: string}>({});
+  const [answers, setAnswers] = useState<{ [key: string]: string }>({});
   const [showResults, setShowResults] = useState(false);
   const [score, setScore] = useState({
     correct: 0,
@@ -103,18 +110,21 @@ export default function PracticePage() {
   });
 
   const getWordCount = (text: string) => {
-    return text.trim().split(/\s+/).filter(word => word.length > 0).length;
+    return text
+      .trim()
+      .split(/\s+/)
+      .filter((word) => word.length > 0).length;
   };
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const text = e.target.value;
-    const currentSet = practiceSets.find(set => set.id === selectedSet);
+    const currentSet = practiceSets.find((set) => set.id === selectedSet);
     if (!currentSet) return;
-    
+
     const question = currentSet.questions[currentQuestion];
     const wordCount = getWordCount(text);
-    
-    if ('maxWords' in question && question.maxWords) {
+
+    if ("maxWords" in question && question.maxWords) {
       if (wordCount <= question.maxWords) {
         setAnswers({ ...answers, [currentQuestion]: text });
       }
@@ -123,7 +133,7 @@ export default function PracticePage() {
     }
   };
 
-  const calculateScore = (currentSet: typeof practiceSets[0]) => {
+  const calculateScore = (currentSet: (typeof practiceSets)[0]) => {
     let correctAnswers = 0;
     let totalMultipleChoice = 0;
     let shortAnswerAttempted = 0;
@@ -145,7 +155,10 @@ export default function PracticePage() {
     setScore({
       correct: correctAnswers,
       total: currentSet.questions.length,
-      multipleChoiceScore: totalMultipleChoice > 0 ? (correctAnswers / totalMultipleChoice) * 100 : 0,
+      multipleChoiceScore:
+        totalMultipleChoice > 0
+          ? (correctAnswers / totalMultipleChoice) * 100
+          : 0,
       shortAnswerAttempted,
       paragraphAttempted,
     });
@@ -160,21 +173,25 @@ export default function PracticePage() {
             <h1 className="text-3xl font-bold text-gray-900">Practice Sets</h1>
             <p className="text-gray-600 mt-2">Choose a practice set to begin</p>
           </div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {practiceSets.map((set) => (
-              <Card 
+              <Card
                 key={set.id}
                 className="p-6 hover:shadow-lg transition-shadow cursor-pointer"
                 onClick={() => setSelectedSet(set.id)}
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">{set.title}</h3>
-                    <p className="text-gray-600 text-sm mb-4">{set.description}</p>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                      {set.title}
+                    </h3>
+                    <p className="text-gray-600 text-sm mb-4">
+                      {set.description}
+                    </p>
                   </div>
                 </div>
-                
+
                 <div className="space-y-3">
                   <div className="flex items-center text-sm text-gray-600">
                     <Target className="w-4 h-4 mr-2" />
@@ -203,40 +220,52 @@ export default function PracticePage() {
     );
   }
 
-  const currentSet = practiceSets.find(set => set.id === selectedSet)!;
+  const currentSet = practiceSets.find((set) => set.id === selectedSet)!;
   const currentQuestionData = currentSet.questions[currentQuestion];
-  const progressValue = ((currentQuestion + 1) / currentSet.questions.length) * 100;
+  const progressValue =
+    ((currentQuestion + 1) / currentSet.questions.length) * 100;
 
   if (showResults) {
     return (
       <div className="min-h-screen bg-gray-50 pt-24">
         <div className="max-w-2xl mx-auto px-4">
           <Card className="p-8">
-            <h2 className="text-2xl font-bold text-center mb-6">Practice Set Complete!</h2>
+            <h2 className="text-2xl font-bold text-center mb-6">
+              Practice Set Complete!
+            </h2>
 
             <div className="space-y-6">
               <div>
-                <h3 className="font-semibold mb-2">Multiple Choice Questions</h3>
+                <h3 className="font-semibold mb-2">
+                  Multiple Choice Questions
+                </h3>
                 <div className="bg-gray-100 p-4 rounded-lg">
                   <div className="flex items-center justify-between">
                     <span>Accuracy</span>
-                    <span className="font-semibold">{score.multipleChoiceScore.toFixed(1)}%</span>
+                    <span className="font-semibold">
+                      {score.multipleChoiceScore.toFixed(1)}%
+                    </span>
                   </div>
-                  <Progress value={score.multipleChoiceScore} className="mt-2" />
+                  <Progress
+                    value={score.multipleChoiceScore}
+                    className="mt-2"
+                  />
                 </div>
               </div>
 
               <div>
                 <h3 className="font-semibold mb-2">Short Answers</h3>
                 <p className="text-gray-600">
-                  {score.shortAnswerAttempted} question{score.shortAnswerAttempted !== 1 ? 's' : ''} attempted
+                  {score.shortAnswerAttempted} question
+                  {score.shortAnswerAttempted !== 1 ? "s" : ""} attempted
                 </p>
               </div>
 
               <div>
                 <h3 className="font-semibold mb-2">Paragraph Responses</h3>
                 <p className="text-gray-600">
-                  {score.paragraphAttempted} question{score.paragraphAttempted !== 1 ? 's' : ''} attempted
+                  {score.paragraphAttempted} question
+                  {score.paragraphAttempted !== 1 ? "s" : ""} attempted
                 </p>
               </div>
             </div>
@@ -275,8 +304,8 @@ export default function PracticePage() {
     <div className="min-h-screen bg-gray-50 pt-24">
       <div className="max-w-4xl mx-auto px-4">
         <div className="mb-8">
-          <Button 
-            variant="outline" 
+          <Button
+            variant="outline"
             onClick={() => {
               setSelectedSet(null);
               setCurrentQuestion(0);
@@ -307,64 +336,75 @@ export default function PracticePage() {
               {currentQuestionData.question}
             </h2>
 
-            {currentQuestionData.type === "multiple-choice" && (
-              <RadioGroup 
+            {currentQuestionData.type === "multiple-choice" ? (
+              <RadioGroup
                 value={answers[currentQuestion]}
-                onValueChange={(value) => setAnswers({ ...answers, [currentQuestion]: value })}
+                onValueChange={(value) =>
+                  setAnswers({ ...answers, [currentQuestion]: value })
+                }
                 className="space-y-4"
               >
-                {currentQuestionData.options.map((option, index) => (
-                  <div key={index} className="flex items-center space-x-2">
-                    <RadioGroupItem value={index.toString()} id={`q${index}`} />
-                    <label
-                      htmlFor={`q${index}`}
-                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      {option}
-                    </label>
-                  </div>
-                ))}
+                {(currentQuestionData as { options: string[] }).options.map(
+                  (option, index) => (
+                    <div key={index} className="flex items-center space-x-2">
+                      <RadioGroupItem
+                        value={index.toString()}
+                        id={`q${index}`}
+                      />
+                      <label
+                        htmlFor={`q${index}`}
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      >
+                        {option}
+                      </label>
+                    </div>
+                  ),
+                )}
               </RadioGroup>
-            )}
+            ) : null}
 
-            {(currentQuestionData.type === "short-answer" ||
-              currentQuestionData.type === "paragraph") && (
-              <div>
+            {["short-answer", "paragraph"].includes(
+              currentQuestionData.type,
+            ) ? (
+              <div className="space-y-2">
                 <Textarea
-                  className="w-full h-32 p-2 border rounded-md"
                   placeholder="Type your answer here..."
                   value={answers[currentQuestion] || ""}
-                  onChange={handleTextChange}
+                  onChange={(e) =>
+                    setAnswers({
+                      ...answers,
+                      [currentQuestion]: e.target.value,
+                    })
+                  }
+                  className="min-h-[100px]"
                 />
-                {currentQuestionData.type === "short-answer" && 'maxWords' in currentQuestionData && (
-                  <div className="flex justify-between items-center mt-2 text-sm text-gray-500">
-                    <span>Maximum: {currentQuestionData.maxWords} words</span>
-                    <span>
-                      {currentQuestionData.maxWords - getWordCount(answers[currentQuestion] || "")} words remaining
-                    </span>
-                  </div>
-                )}
+                <p className="text-sm text-muted-foreground">
+                  Word limit:{" "}
+                  {(currentQuestionData as { maxWords: number }).maxWords}
+                </p>
               </div>
-            )}
+            ) : null}
 
             <div className="flex justify-between mt-6">
               <Button
                 variant="outline"
                 disabled={currentQuestion === 0}
-                onClick={() => setCurrentQuestion(prev => prev - 1)}
+                onClick={() => setCurrentQuestion((prev) => prev - 1)}
               >
                 Previous
               </Button>
               <Button
                 onClick={() => {
                   if (currentQuestion < currentSet.questions.length - 1) {
-                    setCurrentQuestion(prev => prev + 1);
+                    setCurrentQuestion((prev) => prev + 1);
                   } else {
                     calculateScore(currentSet);
                   }
                 }}
               >
-                {currentQuestion === currentSet.questions.length - 1 ? "Finish" : "Next"}
+                {currentQuestion === currentSet.questions.length - 1
+                  ? "Finish"
+                  : "Next"}
               </Button>
             </div>
           </Card>

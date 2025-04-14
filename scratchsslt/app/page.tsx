@@ -14,7 +14,8 @@ export default function Home() {
             Welcome to ScratchSSLT
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Practice with our comprehensive collection of OSSLT questions and improve your literacy skills.
+            Practice with our comprehensive collection of OSSLT questions and
+            improve your literacy skills.
           </p>
         </div>
 
